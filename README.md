@@ -11,7 +11,7 @@ This will compile all the source files and generate an executable file named `hs
 To start the shell, run the following command:
 `./hsh`
 
-You will then be presented with a prompt (`$ `), indicating that the shell is ready to accept your commands. You can then enter commands just as you would in a regular terminal.
+You will then be presented with a prompt (`#cisfun$ `), indicating that the shell is ready to accept your commands. You can then enter commands just as you would in a regular terminal.
 
 Here are some examples of commands you can run:
 - $ ls

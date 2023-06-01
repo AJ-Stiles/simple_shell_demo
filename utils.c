@@ -11,6 +11,19 @@ int exit_shell(void)
 }
 
 /**
+ * exit_shell_with_status - Exit the shell with a specified status
+ * @exitStatus: The exit status to be returned by the shell
+ *
+ * Exits the shell with the specified exit status.
+ *
+ * @exitStatus: The exit status value to be returned
+ */
+void exit_shell_with_status(int exitStatus)
+{
+	exit(exitStatus);
+}
+
+/**
  * env_shell - Print the current environment
  *
  * Return: None
@@ -35,58 +48,6 @@ void env_shell(void)
 }
 
 /**
- * find_full_path - Searches for a command
- *  in the directories listed in the PATH
- *
- * @command: String representing the name of the command to search for
- * Return:
- *   On success, this function returns a dynamically allocated string
- *   containing the full path to the executable file corresponding to the
- *   given command. The caller is responsible for freeing the memory allocated
- *   for the string. If no valid path is found, the function returns NULL
- */
-char *find_full_path(char *command)
-{
-	char *path = getenv("PATH");
-	char *dir;
-	char *full_path;
-	int i, j;
-
-	full_path = (char *) malloc(PATH_MAX + strlen(command) + 2);
-	if (full_path == NULL)
-	{
-		return (NULL);
-	}
-	while ((dir = strtok(path, ":")) != NULL)
-	{
-		path = NULL;
-		i = 0;
-
-		while (dir[i] != '\0')
-		{
-			full_path[i] = dir[i];
-			i++;
-		}
-		full_path[i] = '/';
-		i++;
-		j = 0;
-		while (command[j] != '\0')
-		{
-			full_path[i] = command[j];
-			i++;
-			j++;
-		}
-		full_path[i] = '\0';
-		if (access(full_path, X_OK) == 0)
-		{
-			return (full_path);
-		}
-	}
-	free(full_path);
-	return (NULL);
-}
-
-/**
  * my_strcmp - compares two strings
  *
  * @s1: pointer to the first string
@@ -102,6 +63,29 @@ int my_strcmp(const char *s1, const char *s2)
 		s1++;
 		s2++;
 	}
+	return ((int)(*s1 - *s2));
+}
+
+/**
+ * my_strncmp - Compare two strings up to a specified length
+ * @s1: Pointer to the first string
+ * @s2: Pointer to the second string
+ * @n: Maximum number of characters to compare
+ *
+ * Compare two strings `s1` and `s2` up to length `n`.
+ *
+ * Return: Difference between the first differing characters or 0 if equal
+ */
+int my_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (n > 0 && *s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n == 0)
+		return (0);
 	return ((int)(*s1 - *s2));
 }
 
